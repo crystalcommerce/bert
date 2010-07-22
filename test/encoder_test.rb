@@ -32,7 +32,7 @@ class EncoderTest < Test::Unit::TestCase
     end
 
     should "convert tuple to array" do
-      arr = BERT::Encoder.convert(t[:foo, 2])
+      arr = BERT::Encoder.convert(BERT::Tuple[:foo, 2])
       assert arr.is_a?(Array)
     end
 
@@ -42,7 +42,7 @@ class EncoderTest < Test::Unit::TestCase
     end
 
     should "convert an array in a tuple" do
-      arrtup = BERT::Encoder.convert(t[:foo, [1, 2]])
+      arrtup = BERT::Encoder.convert(BERT::Tuple[:foo, [1, 2]])
       assert arrtup.is_a?(Array)
       assert arrtup[1].is_a?(Array)
     end
@@ -72,7 +72,7 @@ class EncoderTest < Test::Unit::TestCase
     end
 
     should "properly convert types" do
-      ruby = t[:user, {:name => 'TPW'}, [/cat/i, 9.9], nil, true, false, :true, :false]
+      ruby = BERT::Tuple[:user, {:name => 'TPW'}, [/cat/i, 9.9], nil, true, false, :true, :false]
       cruby = BERT::Encoder.convert(ruby)
       assert cruby.instance_of?(BERT::Tuple)
       assert cruby[0].instance_of?(Symbol)

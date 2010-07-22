@@ -17,26 +17,26 @@ module BERT
       case item
         when Hash
           pairs = []
-          item.each_pair { |k, v| pairs << t[convert(k), convert(v)] }
-          t[:bert, :dict, pairs]
+          item.each_pair { |k, v| pairs << BERT::Tuple[convert(k), convert(v)] }
+          BERT::Tuple[:bert, :dict, pairs]
         when Tuple
           Tuple.new(item.map { |x| convert(x) })
         when Array
           item.map { |x| convert(x) }
         when nil
-          t[:bert, :nil]
+          BERT::Tuple[:bert, :nil]
         when TrueClass
-          t[:bert, :true]
+          BERT::Tuple[:bert, :true]
         when FalseClass
-          t[:bert, :false]
+          BERT::Tuple[:bert, :false]
         when Time
-          t[:bert, :time, item.to_i / 1_000_000, item.to_i % 1_000_000, item.usec]
+          BERT::Tuple[:bert, :time, item.to_i / 1_000_000, item.to_i % 1_000_000, item.usec]
         when Regexp
           options = []
           options << :caseless if item.options & Regexp::IGNORECASE > 0
           options << :extended if item.options & Regexp::EXTENDED > 0
           options << :multiline if item.options & Regexp::MULTILINE > 0
-          t[:bert, :regex, item.source, options]
+          BERT::Tuple[:bert, :regex, item.source, options]
         else
           item
       end

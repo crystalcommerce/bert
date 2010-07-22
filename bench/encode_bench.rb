@@ -8,10 +8,10 @@ require 'benchmark'
 
 ITER = 1_000
 
-tiny = t[:ok, :awesome]
-small = t[:ok, :answers, [42] * 42]
+tiny = BERT::Tuple[:ok, :awesome]
+small = BERT::Tuple[:ok, :answers, [42] * 42]
 large = ["abc" * 1000] * 100
-complex = [42, {:foo => 'bac' * 100}, t[(1..100).to_a]] * 10
+complex = [42, {:foo => 'bac' * 100}, BERT::Tuple[(1..100).to_a]] * 10
 
 Benchmark.bm(13) do |bench|
   bench.report("BERT tiny")    {ITER.times {BERT.encode(tiny)}}

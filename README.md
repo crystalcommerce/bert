@@ -56,7 +56,8 @@ Usage
     BERT.decode(bert)
     # => t[:user, {:name=>"TPW", :nick=>"mojombo"}]
 
-
+If you want to avoid defining `t` in the global namespace,
+you can do `require 'bert/core'`
 
 Note on Patches/Pull Requests
 -----------------------------
